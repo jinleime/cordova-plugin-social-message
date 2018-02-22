@@ -28,8 +28,12 @@
     }
     if (image)
     {
-        UIImage *imageFromUrl = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", image]]]];
-        [items addObject:imageFromUrl];
+        NSArray *images = [image componentsSeparatedByString: @";"];
+        for (NSUInteger i = 0, l = [images count]; i < l; i++) {
+            NSString *url = [images objectAtIndex:i];
+            UIImage *imageFromUrl = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", url]]]];
+            [items addObject:imageFromUrl];
+        }
     }
 
     UIActivityViewController *activity = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:Nil];
